@@ -5,7 +5,38 @@
 	<groupId>com.ibm.brmt.olsanche</groupId>
 	<artifactId>XQueryTester</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
+	<repositories>
+		<repository>
+			<id>WSO2</id>
+			<name>WSO2 repo</name>
+			<url>http://dist.wso2.org/maven2/</url>
+		</repository>
+	</repositories>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/net.sf.saxon/Saxon-HE -->
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>12.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.miglayout/miglayout-swing -->
+		<dependency>
+			<groupId>com.miglayout</groupId>
+			<artifactId>miglayout-swing</artifactId>
+			<version>5.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.saxon/saxon-xqj -->
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon-xqj</artifactId>
+			<version>9.x</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fifesoft/rsyntaxtextarea -->
+		<dependency>
+			<groupId>com.fifesoft</groupId>
+			<artifactId>rsyntaxtextarea</artifactId>
+			<version>3.3.4</version>
+		</dependency>
+
 	</dependencies>
 </project>

@@ -13,16 +13,13 @@ import javax.xml.xquery.XQException;
 import javax.xml.xquery.XQPreparedExpression;
 import javax.xml.xquery.XQResultSequence;
 
-import com.saxonica.xqj.SaxonXQDataSource;
-
 import net.sf.saxon.s9api.*;
 
-
 public class XqueryExecutor {
-	
+
 	public static void execute() throws FileNotFoundException, XQException {
 		InputStream inputStream = new FileInputStream(new File("courses.xqy"));
-		XQDataSource ds = new SaxonXQDataSource();
+		XQDataSource ds = new net.sf.saxon.xqj.SaxonXQDataSource();
 		XQConnection conn = ds.getConnection();
 		XQPreparedExpression exp = conn.prepareExpression(inputStream);
 		XQResultSequence result = exp.executeQuery();
@@ -30,34 +27,35 @@ public class XqueryExecutor {
 			System.out.println(result.getItemAsString(null));
 		}
 	}
-	
+
 	public static String execute(String xml, String xquery) throws IOException {
 		try {
-            Processor processor = new Processor(false);
-            XQueryCompiler xqueryCompiler = processor.newXQueryCompiler();
-            XQueryExecutable xqueryExecutable = xqueryCompiler.compile(new StringReader(xquery));
-            XQueryEvaluator xqueryEvaluator = xqueryExecutable.load();
+			Processor processor = new Processor(false);
+			XQueryCompiler xqueryCompiler = processor.newXQueryCompiler();
+			XQueryExecutable xqueryExecutable = xqueryCompiler.compile(new StringReader(xquery));
+			XQueryEvaluator xqueryEvaluator = xqueryExecutable.load();
 
-            DocumentBuilder documentBuilder = processor.newDocumentBuilder();
-            XdmNode xmlDoc = documentBuilder.build(new StreamSource(new StringReader(xml)));
+			DocumentBuilder documentBuilder = processor.newDocumentBuilder();
+			XdmNode xmlDoc = documentBuilder.build(new StreamSource(new StringReader(xml)));
 
-            // Utiliser XdmDestination pour convertir XdmNode en une source acceptée par setSource
-            XdmDestination destination = new XdmDestination();
-            processor.writeXdmValue(xmlDoc, destination);
+			// Utiliser XdmDestination pour convertir XdmNode en une source acceptï¿½e par
+			// setSource
+			XdmDestination destination = new XdmDestination();
+			processor.writeXdmValue(xmlDoc, destination);
 
-            // Convertir le XdmNode en Source
-            Source source = destination.getXdmNode().asSource();
-            
-            xqueryEvaluator.setSource(source);
+			// Convertir le XdmNode en Source
+			Source source = destination.getXdmNode().asSource();
 
-            XdmValue result = xqueryEvaluator.evaluate();
+			xqueryEvaluator.setSource(source);
 
-           return result.toString();
-        } catch (SaxonApiException e) {
-            e.printStackTrace();
-        }
-		
+			XdmValue result = xqueryEvaluator.evaluate();
+
+			return result.toString();
+		} catch (SaxonApiException e) {
+			e.printStackTrace();
+		}
+
 		return null;
-    
+
 	}
 }
